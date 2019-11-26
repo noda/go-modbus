@@ -263,7 +263,7 @@ func (mb *tcpTransporter) close() (err error) {
 	if mb.conn != nil {
 		err = mb.conn.Close()
         
-        if !mb.closeTimer.Stop() {
+        if mb.closeTimer != nil && !mb.closeTimer.Stop() {
 	        <-mb.closeTimer.C
         }
 
