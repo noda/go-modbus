@@ -262,6 +262,11 @@ func (mb *tcpTransporter) logf(format string, v ...interface{}) {
 func (mb *tcpTransporter) close() (err error) {
 	if mb.conn != nil {
 		err = mb.conn.Close()
+        
+        if !mb.closeTimer.Stop() {
+	        <-mb.closeTimer.C
+        }
+
 		mb.conn = nil
 	}
 	return
